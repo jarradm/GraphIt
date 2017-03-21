@@ -19,7 +19,7 @@ var tooltip = {
             $('.ttPoint').html("<img src='tooltippoint.png'>");
             $('.ttContainer').css({top: '500px', left: '500px'}); 
         },
-    InitToolTip : function() {
+    InitToolTip : function(txt) {
             // tooltip div elements
             $('body').append("<div class='ttContainer'>" + 
                 "<div class='ttleft'>" +
@@ -30,7 +30,21 @@ var tooltip = {
                 "<div class='ttText'></div>" +
                 "</div>" +
                 "</div>");
-                // make sure tooltip is hidden before adding text
-                $('.ttContainer').hide();
+            // make sure tooltip is hidden before adding text
+            $('.ttContainer').hide();
+            this.ResetToolTip(txt);
+        },
+    // evt functions gets passed to an event handler
+    // 'this' keyword will refer to the element the event handler is attached to
+    evtMouseEnter : function () {
+            var position = $(this).position();
+            var mid = $(this).height() / 2;
+            $('.ttContainer').css({top: position.top + mid - ttPointMid, left: position.left + $(this).width() });
+            $('.ttContainer').show();
+        },
+    evtMouseOut : function () {
+            $('.ttContainer').hide();
+            text = "This is <br>A change<br>in the tooltip";
+            tooltip.ResetToolTip(text);
         }
 };

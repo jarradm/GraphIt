@@ -90,22 +90,10 @@
                               "Test the dynamic sizing ability<br>" +
                               "Of the tooltip";
                        
-            tooltip.InitToolTip();
-            tooltip.ResetToolTip(text);
-            $('#ttMouseOver')
-                .mouseenter(function () {
-                    var position = $(this).position();
-                    var mid = $(this).height() / 2;
-                    $('.ttContainer').css({top: position.top + mid - ttPointMid, left: position.left + $(this).width() });
-                    $('.ttContainer').show();
-                });
-            $('#ttMouseOver')
-                .mouseout(function () {
-                    $('.ttContainer').hide();
-                    text = "This is <br>A change<br>in the tooltip";
-                    tooltip.ResetToolTip(text);
-                });
-            
+            tooltip.InitToolTip(text);
+
+            $('#ttMouseOver').mouseenter(tooltip.evtMouseEnter);
+            $('#ttMouseOver').mouseout(tooltip.evtMouseOut);  
         </script>
     </body>
 </html>
