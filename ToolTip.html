@@ -1,0 +1,148 @@
+<html>
+    <head>
+        <script src="jquery-3.1.1.js"></script>
+        <style>
+        #ttContainer {
+            display: inline-block;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        #ttLeft {
+            float: left;
+            width: 20px;
+            height: 70px;
+        }
+        #ttRight {
+            float: right;
+            border-top: 1px solid black;
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;
+            width: 150px;
+            height: 58px;
+            background-color: rgb(255, 238, 221);
+            padding: 5px 10px 5px 10px;
+        }
+        #ttBorderLeft {
+            width: 19px;
+            height: 49px;
+            border-right: 1px solid black;
+        }
+        
+        .ttContainer {
+            display: inline-block;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .ttLeft {
+            float: left;
+            width: 20px;
+            height: 70px;
+        }
+        .ttRight {
+            float: right;
+            border-top: 1px solid black;
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;
+            background-color: rgb(255, 238, 221);
+            padding: 5px 10px 5px 10px;
+        }
+        .ttBorderLeft {
+            width: 19px;
+            height: 49px;
+            border-right: 1px solid black;
+        }
+        #ttMouseOver {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background-color: blue;
+            left: 400px;
+            top: 50px;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="ttContainer">
+            <div id="ttLeft">
+                <div id="ttPoint">
+                    <img src="tooltippoint.png" />
+                </div>
+                <div id="ttBorderLeft">
+                </div>
+            </div>
+            <div id="ttRight">
+                <div id="ttText">
+                </div>
+            </div>
+        </div>
+        
+        <div id="ttMouseOver"></div>
+        <script>
+            var ttPointWidth = 20;
+            var ttPointHeight = 21;
+            var ttPointMid = 11;
+            var text = "This is the text of the tooltip<br>" +
+                              "It is designed to be multiline to<br>" +
+                              "Test the dynamic sizing ability<br>" +
+                              "Of the tooltip";
+            InitToolTip();
+            ResetToolTip(text);
+            $('#ttMouseOver')
+                .mouseenter(function () {
+                    var position = $(this).position();
+                    var mid = $(this).height() / 2;
+                    $('.ttContainer').css({top: position.top + mid - ttPointMid, left: position.left + $(this).width() });
+                    $('.ttContainer').show();
+                });
+            $('#ttMouseOver')
+                .mouseout(function () {
+                    $('.ttContainer').hide();
+                    text = "This is <br>A change<br>in the tooltip";
+                    ResetToolTip(text);
+                });
+            
+            function ResetToolTip(txt)
+            {         
+                $('#ttText').html("This is the tooltip<br>It has 3 lines<br>To it");
+                //$('#ttText').hide();
+                $('#ttText').css({left: "left top", at: "left bottom", of: "#ttRight"});
+                //alert($('#ttText').height());
+            
+            
+                $('.ttText').html(txt);
+                $('.ttContainer').show();
+                var ttWidth =  Math.ceil($('.ttText').width());
+                var ttHeight = Math.ceil($('.ttText').height());
+                $('.ttContainer').hide();
+                $('.ttRight').css({width: ttWidth, height: ttHeight});
+                // ttBorderLeft.height = ttHeight + ttRight.padding(10px) + ttRight.border(2px) - ttPoint.height(21px) = ttHeight - 9
+                $('.ttBorderLeft').css({height: ttHeight - 9});
+                $('.ttPoint').html("<img src='tooltippoint.png'>");
+                $('.ttContainer').css({top: '500px', left: '500px'});
+            }
+            
+            // Tooltip setup, call once per page load.
+            function InitToolTip()
+            {
+                // tooltip div elements
+                $('body').append("<div class='ttContainer'>" + 
+                    "<div class='ttleft'>" +
+                    "<div class='ttPoint'></div>" +
+                    "<div class='ttBorderLeft'></div>" +
+                    "</div>" +
+                    "<div class='ttRight'>" +
+                    "<div class='ttText'></div>" +
+                    "</div>" +
+                    "</div>");
+                // make sure tooltip is hidden before adding text
+                $('.ttContainer').hide();
+            }
+        </script>
+    </body>
+</html>
+
+<!--
+255, 238, 221
+--!>
