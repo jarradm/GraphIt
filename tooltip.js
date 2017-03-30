@@ -44,7 +44,7 @@ var tooltip = {
         },
     evtMouseOut : function () {
             $('.ttContainer').hide();
-            text = "This is <br>A change<br>in the tooltip";
+            var text = "This is <br>A change<br>in the tooltip";
             tooltip.ResetToolTip(text);
         }
 };
